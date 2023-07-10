@@ -10,7 +10,7 @@ async def wait_n(n: int, max_delay: int) -> List[float]:
        Spawns wait_random n times with the specified max_delay
         and returns the list of all the delays (float values).
     """
-    Lists = [wait_random(max_delay) for _ in range(n)]
-    Lists = asyncio.as_completed(Lists)
-    delays = [await List for List in Lists]
+    coroutines = [wait_random(max_delay) for _ in range(n)]
+    completed_coroutines = asyncio.as_completed(Lists)
+    delays = [await coroutine for coroutine in completed_coroutines]
     return delays

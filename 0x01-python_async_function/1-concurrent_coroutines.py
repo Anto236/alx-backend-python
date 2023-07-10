@@ -11,6 +11,6 @@ async def wait_n(n: int, max_delay: int) -> List[float]:
         and returns the list of all the delays (float values).
     """
     coroutines = [wait_random(max_delay) for _ in range(n)]
-    completed_coroutines = asyncio.as_completed(Lists)
+    completed_coroutines = asyncio.as_completed(coroutines)
     delays = [await coroutine for coroutine in completed_coroutines]
     return delays

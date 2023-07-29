@@ -19,8 +19,7 @@ class TestGithubOrgClient(TestCase):
     @patch('client.get_json')
     def test_org(self, org_name, mock_json):
         """ Test method returns correct output """
-        gc = GithubOrgClient(org_name)
-        gc.org()
+        github_client = GithubOrgClient(org_name)
+        github_client.org()
         mock_json.assert_called_once_with(
-            f"https://api.github.com/orgs/{org_name}"
-            )
+            f"https://api.github.com/orgs/{org_name}")

@@ -6,6 +6,7 @@ Unit tests for client.GithubOrgClient class
 import unittest
 from unittest.mock import patch
 from client import GithubOrgClient
+from parameterized import parameterized
 
 
 class TestGithubOrgClient(unittest.TestCase):

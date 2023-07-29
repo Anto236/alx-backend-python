@@ -1,45 +1,31 @@
 #!/usr/bin/env python3
 """
-Unit tests for client.GithubOrgClient class
+Unit test Test client
 """
 
+
 import unittest
-from unittest.mock import patch
+from parameterized import parameterized,
+from unittest import mock
+from unittest.mock import patch, Mock, PropertyMock
 from client import GithubOrgClient
-from parameterized import parameterized
 
 
 class TestGithubOrgClient(unittest.TestCase):
     """
-    TestGithubOrgClient class to test the GithubOrgClient class
+    Test github org client classs
     """
 
     @parameterized.expand([
-        ("google",),
-        ("abc",),
+        ('google'),
+        ('abc')
     ])
-    @patch('client.GithubOrgClient.get_json')
-    def test_org(self, org_name, mock_get_json):
+    @patch('client.get_json')
+    def test_org(self, data, mock):
         """
-        Test the GithubOrgClient.org method with mocked get_json.
+        self descriptive
         """
-        """Configure the mock to return a specific
-        value when get_json is called."""
-        expected_result = {
-            "name": org_name,
-            "repos_url": f"https://api.github.com/orgs/{org_name}/repos"
-        }
-        mock_get_json.return_value = expected_result
-
-        """Create an instance of GithubOrgClient"""
-        github_client = GithubOrgClient(org_name)
-
-        """Call the org method"""
-        result = github_client.org()
-
-        """Check that get_json is called once with the expected argument"""
-        mock_get_json.assert_called_once_with(
-            f"https://api.github.com/orgs/{org_name}")
-
-        """Check that the result is correct"""
-        self.assertEqual(result, expected_result)
+        endpoint = 'https://api.github.com/orgs/{}'.format(data)
+        spec = GithubOrgClient(data)
+        spec.org()
+        mock.assert_called_once_with(endpoint)

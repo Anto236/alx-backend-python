@@ -1,37 +1,26 @@
 #!/usr/bin/env python3
-"""
-Unit test Test client
-"""
+""" Unittest module """
 
+from unittest import TestCase, mock
+from unittest.mock import patch, Mock
+from parameterized import parameterized
 
-import unittest
-from urllib import response
-from parameterized import parameterized, parameterized_class
-from unittest import mock
-from unittest.mock import patch, Mock, PropertyMock
+import client
 from client import GithubOrgClient
-from fixtures import TEST_PAYLOAD
 
 
-class TestGithubOrgClient(unittest.TestCase):
-    """
-    Test github org client classs
-    """
+class TestGithubOrgClient(TestCase):
+    """ Class for testing GithubOrgClient """
 
     @parameterized.expand([
-        ('google'),
-        ('abc')
+        ("google"),
+        ("abc"),
     ])
     @patch('client.get_json')
-    def test_org(self, data, mock):
-        """
-        self descriptive
-        """
-        endpoint = 'https://api.github.com/orgs/{}'.format(data)
-        spec = GithubOrgClient(data)
-        spec.org()
-        mock.assert_called_once_with(endpoint)
-
-
-if __name__ == '__main__':
-    unittest.main()
+    def test_org(self, org_name, mock_json):
+        """ Test method returns correct output """
+        gc = GithubOrgClient(org_name)
+        gc.org()
+        mock_json.assert_called_once_with(
+            f"https://api.github.com/orgs/{org_name}"
+            )

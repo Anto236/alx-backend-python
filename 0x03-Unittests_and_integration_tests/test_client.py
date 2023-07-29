@@ -5,10 +5,12 @@ Unit test Test client
 
 
 import unittest
-from parameterized import parameterized,
+from urllib import response
+from parameterized import parameterized, parameterized_class
 from unittest import mock
 from unittest.mock import patch, Mock, PropertyMock
 from client import GithubOrgClient
+from fixtures import TEST_PAYLOAD
 
 
 class TestGithubOrgClient(unittest.TestCase):
